@@ -1,0 +1,34 @@
+{% extends "template.html" %}
+  {% from 'bootstrap5/form.html' import render_form %}
+  
+  <body class="bg-gray-100">
+     {% block content %}
+
+     <form action="/predict" method="post">
+        {{ form.hidden_tag() }}
+   
+
+    <h1 class="text-4xl font-bold text-center mt-8">Salary Predictor</h1>
+    <p class="text-lg text-center mt-4">
+      Get a predicted average salary based on years of experience
+    </p>
+   
+    <div class="max-w-md mx-auto mt-8">
+      <span class="block text-sm font-medium text-slate-700">Years of Exp</span>
+      <div class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+      {{ form.name }}
+      </div>
+      
+     <div class="mt-6 flex items-center justify-end gap-x-6">
+      
+    <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ">{{ form.submit }}</button>
+    
+  </div>
+
+    </div>
+    <p class="text-lg text-center mt-8"><strong>{{ message }}</strong></p>
+
+    </form>
+    {% endblock %}
+  </body>
+</html>
