@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap5
 from backend import project
-
+from pandas as pd
 from flask_wtf import FlaskForm, CSRFProtect
 from wtforms import SubmitField, IntegerField
 from wtforms.validators import InputRequired
@@ -29,12 +29,10 @@ class ExpForm(FlaskForm):
 def index():
     form = ExpForm()
     message = ""
-    psprice= ""
     if form.validate_on_submit():
         name = form.name.data
-        print(name)
 
-    return render_template("index.html", form=form, message=message, psprice=psprice)
+    return render_template("index.html", form=form, message=message)
 
 @app.route('/about')
 def about():
@@ -45,7 +43,8 @@ def predict():
     if request.method == 'POST':
         predicted_salary = 0
         exp = request.form['name']
-        project.models.get('salarypredictor').predict({'YearsExperience': exp})
+        df = pd.DataFrame({'YearsExperience': [exp]})
+        project.models.get('salarypredictor').predict(df)
         psprice = "The predicted salary for " + exp + " years of exp is: " + f"{predicted_salary}"
 
       
